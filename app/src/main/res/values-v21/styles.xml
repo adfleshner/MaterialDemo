@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <style name="AppTheme" parent="android:Theme.Material">
+        <item name="android:colorPrimary">#00688B</item>
+        <item name="android:colorPrimaryDark">#005669</item>
+        <item name="android:textColorPrimary">#eee</item>
+        <item name="android:colorAccent">#f00</item>
+    </style>
+
+    <style name="AppThemeRegister" parent="android:Theme.Material">
+        <item name="android:colorPrimary">#488214</item>
+        <item name="android:colorPrimaryDark">#324F17</item>
+        <item name="android:textColorPrimary">#eee</item>
+        <item name="android:colorAccent">#66CD00</item>
+    </style>
+
+    <style name="AppThemeNoActionBar" parent="AppTheme">
+        <item name="android:colorPrimary">#0000</item>
+        <item name="android:colorPrimaryDark">#0000</item>
+    </style>
+</resources>
