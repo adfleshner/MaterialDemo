@@ -11,7 +11,8 @@
     <EditText
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/editText"
+        android:id="@+id/et_reg_username"
+        android:viewName="awesomeText"
         android:layout_alignParentTop="true"
         android:layout_alignParentStart="true"
         android:layout_alignParentEnd="true"
@@ -20,22 +21,11 @@
     <EditText
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:inputType="textPassword"
         android:ems="10"
-        android:id="@+id/editText2"
-        android:layout_below="@+id/editText"
+        android:id="@+id/et_reg_email"
+        android:layout_below="@+id/et_reg_username"
         android:layout_alignParentStart="true"
-        android:layout_alignEnd="@+id/editText"
-        android:hint="password" />
+        android:layout_alignEnd="@+id/et_reg_username"
+        android:hint="email" />
 
-    <EditText
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:inputType="textPassword"
-        android:ems="10"
-        android:id="@+id/editText3"
-        android:layout_below="@+id/editText2"
-        android:layout_alignParentStart="true"
-        android:layout_alignEnd="@+id/editText2"
-        android:hint="confirm password" />
 </RelativeLayout>

@@ -1,5 +1,8 @@
 package caps.ua.edu.materialdemo.Models;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
@@ -9,11 +12,18 @@ import java.util.ArrayList;
 /**
  * Created by afleshner on 7/7/2014.
  */
-public class User {
+public class User implements Parcelable {
 
-    String Username;
+    private String Username;
     //never ever ever save a password only doing it this way for ease of use
-    String Password;
+    private String Email;
+
+    public User(){};
+
+    public User(String username, String email) {
+        Username = username;
+        Email = email;
+    }
 
     public static String toJson(User user) {
         String temp = "{}";
@@ -25,11 +35,12 @@ public class User {
         return temp;
     }
 
-    public static String toJsonArray(ArrayList<User>user) {
+    public static String toJsonArray(ArrayList<User> user) {
         String temp = "[{}]";
         try {
-            Type listOfUserObject = new TypeToken<ArrayList<User>>(){}.getType();
-            temp = new Gson().toJson(user,listOfUserObject);
+            Type listOfUserObject = new TypeToken<ArrayList<User>>() {
+            }.getType();
+            temp = new Gson().toJson(user, listOfUserObject);
         } catch (Exception e) {
 
         }
@@ -39,7 +50,7 @@ public class User {
     public static User fromJson(String user) {
         User temp = new User();
         try {
-            temp = new Gson().fromJson(user,User.class);
+            temp = new Gson().fromJson(user, User.class);
         } catch (Exception e) {
 
         }
@@ -49,7 +60,8 @@ public class User {
     public static ArrayList<User> fromJsonArray(String user) {
         ArrayList<User> temp = new ArrayList<User>();
         try {
-            Type listOfUserObject = new TypeToken<ArrayList<User>>(){}.getType();
+            Type listOfUserObject = new TypeToken<ArrayList<User>>() {
+            }.getType();
             temp = new Gson().fromJson(user, listOfUserObject);
         } catch (Exception e) {
 
@@ -57,4 +69,32 @@ public class User {
         return temp;
     }
 
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeString(this.Username);
+        dest.writeString(this.Email);
+    }
+
+
+
+    private User(Parcel in) {
+        this.Username = in.readString();
+        this.Email = in.readString();
+    }
+
+    public static final Parcelable.Creator<User> CREATOR = new Parcelable.Creator<User>() {
+        public User createFromParcel(Parcel source) {
+            return new User(source);
+        }
+
+        public User[] newArray(int size) {
+            return new User[size];
+        }
+    };
 }

@@ -1,31 +1,53 @@
 package caps.ua.edu.materialdemo.Activities;
 
 import android.app.Activity;
+import android.app.ActivityOptions;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.Window;
 import android.widget.EditText;
+import android.widget.Toast;
 
+import caps.ua.edu.materialdemo.Models.User;
 import caps.ua.edu.materialdemo.R;
+import caps.ua.edu.materialdemo.Utils.mat_constants;
 
 public class RegisterAct extends Activity {
 
-    EditText etUsername,etPassword, etPasswordConfirm;
+
+    private EditText etregusername;
+    private EditText etregemail;
+    private SharedPreferences preferences;
+    private SharedPreferences.Editor editor;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        //needed for ActivityOptions.makeSceneTransitionAnimation to work.
+        getWindow().requestFeature(Window.FEATURE_CONTENT_TRANSITIONS);
         super.onCreate(savedInstanceState);
         getActionBar().setTitle("Register!");
         setContentView(R.layout.activity_register);
-        InitUI();
+        preferences = PreferenceManager.getDefaultSharedPreferences(getBaseContext());
+        initialize();
+
     }
 
-    private void InitUI() {
-        etUsername = (EditText) findViewById(R.id.editText);
-        etPassword = (EditText) findViewById(R.id.editText2);
-        etPasswordConfirm = (EditText) findViewById(R.id.editText3);
+    //Links all of the view to the xml layout file
+    private void initialize() {
+        etregusername = (EditText) findViewById(R.id.et_reg_username);
+        etregemail = (EditText) findViewById(R.id.et_reg_email);
+        FillInUI();
+    }
+
+    private void FillInUI() {
+        String username = getIntent().getStringExtra(mat_constants.ET_ME_TEXT_KEY);
+        if(username!=null){
+            etregusername.setText(username);
+        }
     }
 
 
@@ -43,11 +65,25 @@ public class RegisterAct extends Activity {
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
         if (id == R.id.action_register) {
-            SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
-            SharedPreferences.Editor editor = preferences.edit();
+            editor = preferences.edit();
+            if(preferences.contains(mat_constants.USER_PREF_KEY+ etregusername.getText().toString())){
+                Toast.makeText(RegisterAct.this,"User Already Exists",Toast.LENGTH_SHORT).show();
+            }else{
+                editor.putString(mat_constants.USER_PREF_KEY+etregusername.getText().toString(), User.toJson(new User(etregusername.getText().toString(),etregemail.getText().toString())));
+                Intent i = new Intent(RegisterAct.this,LoginAct.class);
+                ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation( RegisterAct.this , etregusername, "awesomeText");
+                i.putExtra(mat_constants.ET_ME_TEXT_KEY, etregusername.getText().toString());
+                i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                startActivity(i, options.toBundle());
+                editor.commit();
+                finish();
+
+            }
 
             return true;
         }
         return super.onOptionsItemSelected(item);
     }
+
+
 }
