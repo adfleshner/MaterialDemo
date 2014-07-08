@@ -20,6 +20,22 @@ public class User implements Parcelable {
 
     public User(){};
 
+    public String getUsername() {
+        return Username;
+    }
+
+    public void setUsername(String username) {
+        Username = username;
+    }
+
+    public String getEmail() {
+        return Email;
+    }
+
+    public void setEmail(String email) {
+        Email = email;
+    }
+
     public User(String username, String email) {
         Username = username;
         Email = email;

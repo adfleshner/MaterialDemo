@@ -23,9 +23,13 @@
         </activity>
         <activity
             android:name=".Activities.RegisterAct"
+            android:label="@string/title_activity_register"
             android:theme="@style/AppThemeRegister"
-            android:uiOptions="splitActionBarWhenNarrow"
-            android:label="@string/title_activity_register" >
+            android:uiOptions="splitActionBarWhenNarrow" >
+        </activity>
+        <activity
+            android:name=".Activities.BaseActivity"
+            android:label="@string/title_activity_base" >
         </activity>
     </application>
 

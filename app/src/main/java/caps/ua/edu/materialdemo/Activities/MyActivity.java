@@ -1,6 +1,5 @@
 package caps.ua.edu.materialdemo.Activities;
 
-import android.app.Activity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -14,14 +13,12 @@ import caps.ua.edu.materialdemo.R;
 import caps.ua.edu.materialdemo.Utils.mat_constants;
 
 
-public class MyActivity extends Activity {
+public class MyActivity extends BaseActivity {
 
     private RecyclerView mRecyclerView;
     private RecyclerView.Adapter mAdapter;
     private RecyclerView.LayoutManager mLayoutManager;
-
     private EditText etMe;
-
 
     private String[] myDataset = new String[]{
             "alpha","beta","cupcake","donut","eclair","froyo","gingerbread","honeycomb","icecream sandwich","jellybean","kitkat","L"
@@ -36,7 +33,7 @@ public class MyActivity extends Activity {
     }
     //initializes UI Components
     private void InitUI() {
-        SetUpTheRecyler();
+        SetUpTheRecycler();
         etMe = (EditText) findViewById(R.id.etMe);
         FillInUI();
     }
@@ -49,7 +46,7 @@ public class MyActivity extends Activity {
         }
     }
 
-    private void SetUpTheRecyler() {
+    private void SetUpTheRecycler() {
         mRecyclerView = (RecyclerView) findViewById(R.id.my_recycler_view);
 
         // improve performance if you know that changes in content
